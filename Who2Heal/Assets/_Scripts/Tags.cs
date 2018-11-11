@@ -9,5 +9,6 @@ public class Tags
     public const string Player = "Player";
     public const string MainCamera = "MainCamera";
     public const string Revivable = "Revivable"; 
-    public const string Solid = "Solid"; 
+    public const string Solid = "Solid";
+    public const string ManaPotion = "ManaPotion";
 }

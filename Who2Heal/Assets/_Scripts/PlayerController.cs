@@ -78,6 +78,13 @@ public class PlayerController : MonoBehaviour {
         {
             revivableCorpses.Add(other.gameObject); 
         }
+
+        if (other.tag == Tags.ManaPotion)
+        {
+            GameObject.Find("SceneManager").GetComponent<SceneManager>().PickupPotion(other.gameObject);
+            manaPotions++;
+            GameObject.Find("SceneManager").GetComponent<SceneManager>().NotifyHUD();
+        }
     }
 
     private void OnTriggerExit(Collider other)
