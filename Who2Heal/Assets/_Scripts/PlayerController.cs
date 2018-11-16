@@ -9,15 +9,25 @@ public class PlayerController : MonoBehaviour {
     public Camera gameCamera;
     
     public int manaPotions = 3;
-    public int reviveManaCost = 30; 
+    public int reviveManaCost = 30;
+
+    public NotificationWidget Notification;
+    public SceneManager SceneManager;
 
     UnitModel unitModel; 
     UnitMover unitMover; 
+    
 
     [SerializeField] List<GameObject> revivableCorpses; 
     
 	void Start ()
     {
+        if (Notification == null)
+            Notification = GameObject.FindObjectOfType<NotificationWidget>();
+
+        if (SceneManager == null)
+            SceneManager = GameObject.FindObjectOfType<SceneManager>();
+
         unitModel = GetComponent<UnitModel>();
         unitMover = GetComponent<UnitMover>();
 
@@ -81,9 +91,13 @@ public class PlayerController : MonoBehaviour {
 
         if (other.tag == Tags.ManaPotion)
         {
-            GameObject.Find("SceneManager").GetComponent<SceneManager>().PickupPotion(other.gameObject);
             manaPotions++;
-            GameObject.Find("SceneManager").GetComponent<SceneManager>().NotifyHUD();
+
+            if (Notification != null)
+                Notification.Notify("You picked up a mana potion!");
+
+            if (SceneManager != null)
+                SceneManager.PickupPotion(other.gameObject);
         }
     }
 
