@@ -20,7 +20,8 @@ public class PotionWidget : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        lastPotionCount = 0;
+        // ASSUMES THAT OLL MY CHILDREN ARE POTION OBJECTS ONLY
+        lastPotionCount = this.transform.childCount;
 
         if (model == null)
         {

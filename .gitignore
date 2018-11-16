@@ -37,4 +37,6 @@ Who2Heal/sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-Who2Heal/Assets/.DS_Store
+
+# Mac Stuff
+*.DS_Store

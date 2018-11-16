@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,8 +39,8 @@ public class PlayerController : MonoBehaviour {
             gameCamera = GameObject.FindWithTag(Tags.MainCamera).GetComponent<Camera>();
         }
     }
-	
-	void Update ()
+
+    void Update ()
     {
         if (unitModel.IsDead)
             return; 
@@ -80,6 +81,16 @@ public class PlayerController : MonoBehaviour {
             }
         }
         
+    }
+
+    public bool CanRevive()
+    {
+        return revivableCorpses.Count > 0 && unitModel.mana.amount >= reviveManaCost;
+    }
+
+    internal bool CanUsePotion()
+    {
+        return manaPotions > 0 && unitModel.mana.amount < unitModel.mana.maxAmount;
     }
 
     private void OnTriggerEnter(Collider other)
