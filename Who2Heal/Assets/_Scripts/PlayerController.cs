@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     
     public int manaPotions = 3;
     public int reviveManaCost = 30;
+    public int potionMana = 30;
 
     public NotificationWidget Notification;
     public SceneManager SceneManager;
@@ -54,18 +55,18 @@ public class PlayerController : MonoBehaviour {
 
         unitMover.Move(camRot * new Vector3(h_axis, 0f, v_axis));
 
-        if (useRevive && unitModel.mana.amount >= reviveManaCost && revivableCorpses.Count > 0)
+        if (useRevive && CanRevive())
         {
             UnitCorpse closestCorpse = null;
             float closestDist = -1f;
-             
+
             foreach (GameObject corpse in revivableCorpses)
             {
                 UnitCorpse unitCorpse = corpse.GetComponent<UnitCorpse>();
                 if (!unitCorpse.CanRevive)
-                    continue; 
+                    continue;
 
-                float dist = (corpse.transform.position - transform.position).magnitude; 
+                float dist = (corpse.transform.position - transform.position).magnitude;
 
                 if (closestCorpse == null || dist < closestDist)
                 {
@@ -76,9 +77,15 @@ public class PlayerController : MonoBehaviour {
 
             if (closestCorpse != null && closestCorpse.Revive())
             {
-                unitModel.TryDrainMana(reviveManaCost); 
+                unitModel.TryDrainMana(reviveManaCost);
                 revivableCorpses.Remove(closestCorpse.gameObject);
             }
+        }
+
+        if (usePotion && CanUsePotion())
+        {
+            unitModel.TryUsePotion(potionMana);
+            manaPotions--;
         }
         
     }

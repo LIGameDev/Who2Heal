@@ -111,6 +111,14 @@ public class UnitModel : MonoBehaviour {
         return true; 
     }
 
+    public bool TryUsePotion(int amount)
+    {
+        if (IsDead || mana.amount == mana.maxAmount)
+            return false;
+        mana.amount = (mana.amount + amount).Clamp(0, mana.maxAmount);
+        return true;
+    }
+
     public bool TryRevive()
     {
         if (!IsDead)
