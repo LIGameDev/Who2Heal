@@ -92,11 +92,17 @@ public class PlayerController : MonoBehaviour {
 
     public bool CanRevive()
     {
+        if (unitModel == null)
+            return false;
+
         return revivableCorpses.Count > 0 && unitModel.mana.amount >= reviveManaCost;
     }
 
     internal bool CanUsePotion()
     {
+        if (unitModel == null)
+            return false;
+
         return manaPotions > 0 && unitModel.mana.amount < unitModel.mana.maxAmount;
     }
 
