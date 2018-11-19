@@ -4,29 +4,20 @@ using UnityEngine;
 
 [RequireComponent(typeof(UnitModel))]
 [RequireComponent(typeof(UnitMover))]
-public class BotController : MonoBehaviour {
-
-    public GameObject corpsePrefab; 
+public class BotController : UnitController {
     
-    UnitModel unitModel;
-    UnitMover unitMover;
-
     Vector3 targetMovePoint;
     float targetMoveTimer;
 
-    void Start () {
-        unitModel = GetComponent<UnitModel>();
-        unitMover = GetComponent<UnitMover>();
+    protected override void Start () {
+        base.Start(); 
 
         targetMovePoint = transform.position; 
         targetMoveTimer = Random.Range(1f, 3f);
-
-        unitModel.OnDeath += UnitModel_OnDeath; 
     }
 	
-	void Update () {
-        if (unitModel.IsDead)
-            return;
+	protected override void Update () {
+        base.Update(); 
 
         // Temp behavior: wander near origin
         targetMoveTimer = Mathf.MoveTowards(targetMoveTimer, 0f, Time.deltaTime); 
@@ -44,27 +35,5 @@ public class BotController : MonoBehaviour {
             unitMover.Move(toTarget.normalized);
         }
     }
-
-    private void OnEnable()
-    {
-        if (unitModel != null)
-            unitModel.OnDeath += UnitModel_OnDeath;
-    }
-
-    private void OnDisable()
-    {
-        if (unitModel != null)
-            unitModel.OnDeath -= UnitModel_OnDeath; 
-    }
-
-    private void UnitModel_OnDeath()
-    {
-        if (corpsePrefab != null)
-        {
-            var corpseObj = Instantiate(corpsePrefab, transform.position, transform.rotation);
-            corpseObj.GetComponent<UnitCorpse>().unit = gameObject; 
-
-            gameObject.SetActive(false); 
-        }
-    }
+    
 }

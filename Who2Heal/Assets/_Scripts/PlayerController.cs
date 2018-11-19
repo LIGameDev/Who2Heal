@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(UnitModel))]
-[RequireComponent(typeof(UnitMover))]
-public class PlayerController : MonoBehaviour {
+public class PlayerController : UnitController {
     
     public Camera gameCamera;
     
@@ -16,24 +14,19 @@ public class PlayerController : MonoBehaviour {
     public NotificationWidget Notification;
     public SceneManager SceneManager;
 
-    UnitModel unitModel; 
-    UnitMover unitMover; 
-    
+    ReviveAbility reviveAbility; 
 
-    [SerializeField] List<GameObject> revivableCorpses; 
-    
-	void Start ()
+    protected override void Start ()
     {
+        base.Start();
+
         if (Notification == null)
             Notification = GameObject.FindObjectOfType<NotificationWidget>();
 
         if (SceneManager == null)
             SceneManager = GameObject.FindObjectOfType<SceneManager>();
-
-        unitModel = GetComponent<UnitModel>();
-        unitMover = GetComponent<UnitMover>();
-
-        revivableCorpses = new List<GameObject>(); 
+ 
+        reviveAbility = GetAbility<ReviveAbility>();
 
         if (gameCamera == null)
         {
@@ -41,10 +34,10 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void Update ()
+	
+	protected override void Update ()
     {
-        if (unitModel.IsDead)
-            return; 
+        base.Update(); 
 
         float h_axis = Input.GetAxisRaw("Horizontal");
         float v_axis = Input.GetAxisRaw("Vertical");
@@ -57,28 +50,11 @@ public class PlayerController : MonoBehaviour {
 
         if (useRevive && CanRevive())
         {
-            UnitCorpse closestCorpse = null;
-            float closestDist = -1f;
+            bool abilityUsed = UseAbility<ReviveAbility>(); 
 
-            foreach (GameObject corpse in revivableCorpses)
-            {
-                UnitCorpse unitCorpse = corpse.GetComponent<UnitCorpse>();
-                if (!unitCorpse.CanRevive)
-                    continue;
-
-                float dist = (corpse.transform.position - transform.position).magnitude;
-
-                if (closestCorpse == null || dist < closestDist)
-                {
-                    closestCorpse = unitCorpse;
-                    closestDist = dist;
-                }
-            }
-
-            if (closestCorpse != null && closestCorpse.Revive())
+            if (abilityUsed)
             {
                 unitModel.TryDrainMana(reviveManaCost);
-                revivableCorpses.Remove(closestCorpse.gameObject);
             }
         }
 
@@ -94,8 +70,11 @@ public class PlayerController : MonoBehaviour {
     {
         if (unitModel == null)
             return false;
+        
+        bool reviveReady = (reviveAbility.State == UnitAbility.AbilityState.Ready);
+        bool sufficientMana = (unitModel.mana.amount >= reviveManaCost); 
 
-        return revivableCorpses.Count > 0 && unitModel.mana.amount >= reviveManaCost;
+        return reviveReady && sufficientMana;
     }
 
     internal bool CanUsePotion()
@@ -108,11 +87,6 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == Tags.Revivable && !revivableCorpses.Contains(other.gameObject))
-        {
-            revivableCorpses.Add(other.gameObject); 
-        }
-
         if (other.tag == Tags.ManaPotion)
         {
             manaPotions++;
@@ -125,11 +99,4 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == Tags.Revivable && revivableCorpses.Contains(other.gameObject))
-        {
-            revivableCorpses.Remove(other.gameObject); 
-        }
-    }
 }
