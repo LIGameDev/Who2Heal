@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Revivable
   - ManaPotion
+  - PartyMember
   layers:
   - Default
   - TransparentFX

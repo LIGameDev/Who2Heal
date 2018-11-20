@@ -4,21 +4,24 @@ using UnityEngine;
 
 [RequireComponent(typeof(UnitModel))]
 [RequireComponent(typeof(UnitMover))]
-public class BotController : UnitController {
+public class BotBehaviour : ABotBehaviour {
     
     Vector3 targetMovePoint;
     float targetMoveTimer;
 
-    protected override void Start () {
-        base.Start(); 
-
+    protected void Start () 
+    {
         targetMovePoint = transform.position; 
         targetMoveTimer = Random.Range(1f, 3f);
     }
-	
-	protected override void Update () {
-        base.Update(); 
 
+    public override bool ShouldProcessUpdate()
+    {
+        return true;
+    }
+
+    public override void ProcessUpdate (UnitMover unitMover) 
+    {
         // Temp behavior: wander near origin
         targetMoveTimer = Mathf.MoveTowards(targetMoveTimer, 0f, Time.deltaTime); 
         if (targetMoveTimer == 0f)

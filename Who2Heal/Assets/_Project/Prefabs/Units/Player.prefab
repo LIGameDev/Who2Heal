@@ -645,7 +645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d02c68e5964284193963155b9bf3fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectTag: Revivable
+  detectTags: []
   detectedObjects: []
 --- !u!114 &114892650124989920
 MonoBehaviour:

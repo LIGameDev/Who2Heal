@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DetectVolume : MonoBehaviour {
 
-    public string detectTag;
+    public string[] detectTags;
 
     [SerializeField] List<GameObject> detectedObjects = new List<GameObject>();
     public List<GameObject> DetectedObjects
@@ -15,7 +16,7 @@ public class DetectVolume : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("[DetectVolume] Trigger entered"); 
-        if (other.tag == detectTag && !detectedObjects.Contains(other.gameObject))
+        if (detectTags.Contains(other.tag) && !detectedObjects.Contains(other.gameObject))
         {
             detectedObjects.Add(other.gameObject);
         }
@@ -23,8 +24,8 @@ public class DetectVolume : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        //Debug.Log("[DetectVolume] Trigger exited");
-        if (other.tag == detectTag && detectedObjects.Contains(other.gameObject))
+        Debug.Log("[DetectVolume] Trigger exited: " + other.gameObject.name);
+        if (detectedObjects.Contains(other.gameObject))
         {
             detectedObjects.Remove(other.gameObject);
         }

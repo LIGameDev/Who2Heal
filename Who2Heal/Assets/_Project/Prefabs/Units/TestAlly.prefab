@@ -45,6 +45,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1209857447298226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4502839391111234}
+  - component: {fileID: 114678991322954040}
+  - component: {fileID: 54805729344581150}
+  - component: {fileID: 136419774317071466}
+  m_Layer: 0
+  m_Name: DetectionVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1490150452327756
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,12 +122,13 @@ GameObject:
   - component: {fileID: 4728212695352328}
   - component: {fileID: 114903252638890664}
   - component: {fileID: 114990121223749590}
-  - component: {fileID: 114485620168749754}
   - component: {fileID: 54377752288845222}
   - component: {fileID: 136746692076464360}
+  - component: {fileID: 114026085307415342}
+  - component: {fileID: 114013511027428950}
   m_Layer: 0
   m_Name: TestAlly
-  m_TagString: Untagged
+  m_TagString: PartyMember
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,6 +196,19 @@ Transform:
   m_Father: {fileID: 4521763660831168}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4502839391111234
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1209857447298226}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_Children: []
+  m_Father: {fileID: 4728212695352328}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4521763660831168
 Transform:
   m_ObjectHideFlags: 1
@@ -199,11 +231,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1883133263118314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4521763660831168}
   - {fileID: 224654276631866784}
+  - {fileID: 4502839391111234}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -306,6 +339,50 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 68
   m_CollisionDetection: 1
+--- !u!54 &54805729344581150
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1209857447298226}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &114013511027428950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883133263118314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a05a020cc12e34c0dbe917d1f73033fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllyDetection: {fileID: 114678991322954040}
+  SeperationRadius: 2
+  DesiredRadiusToPlayer: 3
+--- !u!114 &114026085307415342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883133263118314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6f7efe10ac28476d9c59769228083e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corpsePrefab: {fileID: 1614387535489730, guid: 16dc89a6df8959a48a45bfab59a7481c,
+    type: 2}
+  orderedBehaviours:
+  - {fileID: 114013511027428950}
 --- !u!114 &114307424375846382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -381,19 +458,6 @@ MonoBehaviour:
   m_FillAmount: 0.66
   m_FillClockwise: 1
   m_FillOrigin: 1
---- !u!114 &114485620168749754
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1883133263118314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c15a0fa966d475a4eba5baaf3b288026, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  corpsePrefab: {fileID: 1614387535489730, guid: 16dc89a6df8959a48a45bfab59a7481c,
-    type: 2}
 --- !u!114 &114543560602634488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -406,6 +470,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetRotation: {x: 90, y: 0, z: 0}
+--- !u!114 &114678991322954040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1209857447298226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d02c68e5964284193963155b9bf3fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectTags:
+  - Player
+  - PartyMember
+  detectedObjects: []
 --- !u!114 &114689749158759540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -494,13 +573,26 @@ MonoBehaviour:
   health:
     amount: 100
     maxAmount: 100
-    regenAmount: -20
+    regenAmount: 0
     regenRate: 1
   mana:
     amount: 100
     maxAmount: 100
     regenAmount: 1
     regenRate: 0.2
+--- !u!136 &136419774317071466
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1209857447298226}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136746692076464360
 CapsuleCollider:
   m_ObjectHideFlags: 1
