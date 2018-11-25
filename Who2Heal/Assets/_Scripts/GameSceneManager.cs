@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SceneManager : MonoBehaviour {
+public class GameSceneManager : MonoBehaviour {
 
     public GameObject manaPotion;
     public List<Vector3> manaPotionSpawnLocations;
@@ -19,8 +19,16 @@ public class SceneManager : MonoBehaviour {
         playerController = GameObject.FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
 	}
 
+    private void Update()
+    {
+        bool doPause = Input.GetButtonUp("Pause");
+        if (doPause)
+        {
+            GameManager.Instance.GoToScene(GameManager.W2HScene.MainMenu); 
+        }
+    }
 
-	public void PickupPotion(GameObject potion)
+    public void PickupPotion(GameObject potion)
     {
         Destroy(potion);
     }

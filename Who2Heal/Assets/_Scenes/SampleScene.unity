@@ -1531,6 +1531,53 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdf497765e4893b46a629c1d57a0471c, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1001 &1072736360
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4341016300344520, guid: e9703deff80b13d469ceca7b88c341d4, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341016300344520, guid: e9703deff80b13d469ceca7b88c341d4, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341016300344520, guid: e9703deff80b13d469ceca7b88c341d4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341016300344520, guid: e9703deff80b13d469ceca7b88c341d4, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341016300344520, guid: e9703deff80b13d469ceca7b88c341d4, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341016300344520, guid: e9703deff80b13d469ceca7b88c341d4, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341016300344520, guid: e9703deff80b13d469ceca7b88c341d4, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341016300344520, guid: e9703deff80b13d469ceca7b88c341d4, type: 2}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114279847536615080, guid: e9703deff80b13d469ceca7b88c341d4,
+        type: 2}
+      propertyPath: currentScene
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e9703deff80b13d469ceca7b88c341d4, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!114 &1073685216 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114990121223749590, guid: 0bbd1f582110e6b4491c6052fc2b31d3,

@@ -12,7 +12,7 @@ public class PlayerController : UnitController {
     public int potionMana = 30;
 
     public NotificationWidget Notification;
-    public SceneManager SceneManager;
+    public GameSceneManager GameSceneManager;
 
     ReviveAbility reviveAbility; 
 
@@ -23,8 +23,8 @@ public class PlayerController : UnitController {
         if (Notification == null)
             Notification = GameObject.FindObjectOfType<NotificationWidget>();
 
-        if (SceneManager == null)
-            SceneManager = GameObject.FindObjectOfType<SceneManager>();
+        if (GameSceneManager == null)
+            GameSceneManager = GameObject.FindObjectOfType<GameSceneManager>();
  
         reviveAbility = GetAbility<ReviveAbility>();
 
@@ -94,8 +94,8 @@ public class PlayerController : UnitController {
             if (Notification != null)
                 Notification.Notify("You picked up a mana potion!");
 
-            if (SceneManager != null)
-                SceneManager.PickupPotion(other.gameObject);
+            if (GameSceneManager != null)
+                GameSceneManager.PickupPotion(other.gameObject);
         }
     }
 
