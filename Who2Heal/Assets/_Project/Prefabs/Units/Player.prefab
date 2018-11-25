@@ -531,7 +531,7 @@ MonoBehaviour:
   reviveManaCost: 30
   potionMana: 30
   Notification: {fileID: 0}
-  SceneManager: {fileID: 0}
+  GameSceneManager: {fileID: 0}
 --- !u!114 &114601925505886984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -790,7 +790,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.1}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224664894807498580
