@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -11,13 +9,25 @@ public class FlockingBotBehaviour: ABotBehaviour
     public float DesiredRadiusToPlayer;
     public float ForgetTimeInSeconds = 5f;
 
+    [SerializeField]
+    private float allignmentPercent = 0.05f;
+
+    [SerializeField]
+    private float cohesionPercent = 0.8f;
+
+    [SerializeField]
+    private float seperationPercent = 0.15f;
+
+
     private Dictionary<int, LastSeenAlly> allyPositions = new Dictionary<int, LastSeenAlly>();
 
     protected void Update()
     {
+        // keep an update on who we can see
         foreach(UnitMover unit in FindUnits(UnitModel.Team.Ally))
         {
-            if (HasLineOfSight(unit.transform.position))
+            Vector3 targetPoint = unit.GetComponent<Collider>().bounds.center;
+            if (HasLineOfSight(targetPoint))
             {
                 LastSeenAlly seenEvent = new LastSeenAlly()
                 {
@@ -38,29 +48,33 @@ public class FlockingBotBehaviour: ABotBehaviour
     protected void LateUpdate()
     {
         // forget allies we havent seen in a while
-        var removeIds = allyPositions.Where(kvp => Time.timeSinceLevelLoad - kvp.Value.TimeSeen > ForgetTimeInSeconds).Select(kvp => kvp.Key);
+        var removeIds = allyPositions.Where(kvp => Time.timeSinceLevelLoad - kvp.Value.TimeSeen > ForgetTimeInSeconds).Select(kvp => kvp.Key).ToArray();
         foreach (int id in removeIds)
             allyPositions.Remove(id);
     }
 
+    // do we have a place to move to
     public override bool ShouldProcessUpdate()
     {
         return allyPositions.Count > 0;
     }
 
+    // do the move computation
     public override void ProcessUpdate (UnitMover unitMover) 
     {
-        LastSeenAlly playerSeenEvent = allyPositions.Values.Where(ally => ally.IsPlayer).FirstOrDefault();
-        float distToPlayer = -1;
-        if(playerSeenEvent != null)
-          distToPlayer = Vector3.Distance(playerSeenEvent.Position, this.transform.position);
+        Vector3 flockCenter = ComputeFlockCenter(allyPositions.Values);
+        float distToFlockCenter = Vector3.Distance(flockCenter, this.transform.position);
 
-        if (distToPlayer <= DesiredRadiusToPlayer) // we are close enough to the player just spread out
+        if (distToFlockCenter <= SeperationRadius) // to close spread out
         {
             Vector3 seperation = ComputeSeperation(allyPositions.Values);
             Vector3 resultingMove = seperation;
             resultingMove.Normalize();
             unitMover.Move(resultingMove);
+        }
+        else if (distToFlockCenter <= DesiredRadiusToPlayer) // just right hang out
+        {
+            unitMover.Move(Vector3.zero);
         }
         else // flock
         {
@@ -68,7 +82,7 @@ public class FlockingBotBehaviour: ABotBehaviour
             Vector3 cohesion = ComputeCohesion(allyPositions.Values);
             Vector3 seperation = ComputeSeperation(allyPositions.Values);
 
-            Vector3 resultingMove = allignment + cohesion + seperation;
+            Vector3 resultingMove = (allignment * allignmentPercent) + (cohesion * cohesionPercent) + (seperation * seperationPercent);
             resultingMove.Normalize();
 
             unitMover.Move(resultingMove);
@@ -94,14 +108,14 @@ public class FlockingBotBehaviour: ABotBehaviour
     private bool HasLineOfSight(Vector3 point)
     {
         RaycastHit hit;
-        float dist = Vector3.Distance(transform.position, point);
-        Vector3 dir = (point - transform.position).normalized;
+        Vector3 startPoint = this.GetComponent<Collider>().bounds.center;
+        float dist = Vector3.Distance(startPoint, point);
+        Vector3 dir = (point - startPoint).normalized;
         LayerMask enviLayer = LayerMask.GetMask(new string[] {"Environment"});
 
-        if (Physics.Raycast(transform.position, dir, out hit, dist, enviLayer))
+        if (Physics.Raycast(startPoint, dir, out hit, dist, enviLayer))
         {
-            Debug.DrawRay(transform.position, dir * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
+            Debug.DrawRay(startPoint, dir * hit.distance, Color.cyan);
             return false;
         }
 
@@ -120,14 +134,7 @@ public class FlockingBotBehaviour: ABotBehaviour
 
     private Vector3 ComputeCohesion(IEnumerable<LastSeenAlly> agents)
     {
-        Vector3 centerOfMass = Vector3.zero;
-        foreach (LastSeenAlly agent in agents)
-        {
-            centerOfMass += agent.Position;
-        }
-
-        centerOfMass /= agents.Count();
-
+        Vector3 centerOfMass = ComputeFlockCenter(agents);
         return (centerOfMass - this.transform.position).normalized;
     }
 
@@ -154,6 +161,24 @@ public class FlockingBotBehaviour: ABotBehaviour
         return seperationVector * scaleFactor;
     }
 
+    private Vector3 ComputeFlockCenter(IEnumerable<LastSeenAlly> agents)
+    {
+        Vector3 centerOfMass = Vector3.zero;
+        int agentCount = 0;
+        foreach (LastSeenAlly agent in agents)
+        {
+            centerOfMass += agent.Position;
+
+            agentCount += 1;
+            if (agent.IsPlayer) // make the player prefered
+                agentCount += 3;
+        }
+
+        centerOfMass /= agentCount;
+
+        return centerOfMass;
+    }
+
     private void DrawCross(Vector3 point, float timeSeen)
     {
         Vector3 dir1 = new Vector3(1, 0, -1);
@@ -161,9 +186,9 @@ public class FlockingBotBehaviour: ABotBehaviour
         float radius = 1f;
         Color c = Color.Lerp(Color.magenta, Color.cyan, (Time.timeSinceLevelLoad - timeSeen) / ForgetTimeInSeconds);
 
-        Debug.DrawLine(transform.position, point, c);
-        //Debug.DrawLine(point - dir1 * radius, point + dir1 * radius, c);
-        //Debug.DrawLine(point - dir2 * radius, point + dir2 * radius, c);
+        //Debug.DrawLine(transform.position, point, c);
+        Debug.DrawLine(point - dir1 * radius, point + dir1 * radius, c);
+        Debug.DrawLine(point - dir2 * radius, point + dir2 * radius, c);
     }
 
     private class LastSeenAlly
