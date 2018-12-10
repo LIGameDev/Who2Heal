@@ -127,6 +127,8 @@ GameObject:
   - component: {fileID: 114026085307415342}
   - component: {fileID: 114013511027428950}
   - component: {fileID: 114793605554354366}
+  - component: {fileID: 114499566822732410}
+  - component: {fileID: 114814749068809040}
   m_Layer: 0
   m_Name: TestAlly
   m_TagString: PartyMember
@@ -386,6 +388,7 @@ MonoBehaviour:
   corpsePrefab: {fileID: 1614387535489730, guid: 16dc89a6df8959a48a45bfab59a7481c,
     type: 2}
   orderedBehaviours:
+  - {fileID: 114499566822732410}
   - {fileID: 114793605554354366}
   - {fileID: 114013511027428950}
 --- !u!114 &114307424375846382
@@ -463,6 +466,19 @@ MonoBehaviour:
   m_FillAmount: 0.66
   m_FillClockwise: 1
   m_FillOrigin: 1
+--- !u!114 &114499566822732410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883133263118314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f1de78b38320b4a8844961ef581009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DetectVolume: {fileID: 114678991322954040}
+  DesiredTag: BeelineTest
 --- !u!114 &114543560602634488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -489,6 +505,7 @@ MonoBehaviour:
   detectTags:
   - Player
   - PartyMember
+  - BeelineTest
   detectedObjects: []
 --- !u!114 &114689749158759540
 MonoBehaviour:
@@ -520,7 +537,19 @@ MonoBehaviour:
   seperationPercent: 0
   ForgetTimeInSeconds: 0.5
   AllyDetection: {fileID: 114678991322954040}
-  DesiredRadiusToPlayer: 4
+  DesiredRadiusToPlayer: 2
+--- !u!114 &114814749068809040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883133263118314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d345fc8116a48cb42b17558c525d8bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetTag: BeelineTest
 --- !u!114 &114825984197920370
 MonoBehaviour:
   m_ObjectHideFlags: 1
