@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 136746692076464360}
   - component: {fileID: 114026085307415342}
   - component: {fileID: 114013511027428950}
+  - component: {fileID: 114793605554354366}
   m_Layer: 0
   m_Name: TestAlly
   m_TagString: PartyMember
@@ -365,10 +366,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05a020cc12e34c0dbe917d1f73033fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allignmentPercent: 0.25
+  cohesionPercent: 0.75
+  seperationPercent: 0
+  ForgetTimeInSeconds: 0.5
   AllyDetection: {fileID: 114678991322954040}
-  SeperationRadius: 2
-  DesiredRadiusToPlayer: 3
-  ForgetTimeInSeconds: 5
+  SeperationRadius: 4
 --- !u!114 &114026085307415342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -383,6 +386,7 @@ MonoBehaviour:
   corpsePrefab: {fileID: 1614387535489730, guid: 16dc89a6df8959a48a45bfab59a7481c,
     type: 2}
   orderedBehaviours:
+  - {fileID: 114793605554354366}
   - {fileID: 114013511027428950}
 --- !u!114 &114307424375846382
 MonoBehaviour:
@@ -500,6 +504,23 @@ MonoBehaviour:
   HealthIndicator: {fileID: 114422305276863664}
   ManaIndicator: {fileID: 114877772362756452}
   _model: {fileID: 114990121223749590}
+--- !u!114 &114793605554354366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883133263118314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2a8df02bc6baa42a9e8b5248d104ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allignmentPercent: 0.1
+  cohesionPercent: 0.9
+  seperationPercent: 0
+  ForgetTimeInSeconds: 0.5
+  AllyDetection: {fileID: 114678991322954040}
+  DesiredRadiusToPlayer: 4
 --- !u!114 &114825984197920370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -556,7 +577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAccel: 4
   moveDecel: 1.8
-  moveSpeed: 10
+  moveSpeed: 5
   rotateToMoveDirection: 1
   rotationLerpRate: 0.5
 --- !u!114 &114990121223749590
