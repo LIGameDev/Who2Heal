@@ -13,6 +13,11 @@ public class DetectVolume : MonoBehaviour {
         get { return detectedObjects; }
     }
 
+    private void Update()
+    {
+        detectedObjects.RemoveAll(go => go == null);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("[DetectVolume] Trigger entered"); 
