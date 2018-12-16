@@ -374,6 +374,7 @@ MonoBehaviour:
   ForgetTimeInSeconds: 0.5
   AllyDetection: {fileID: 114678991322954040}
   SeperationRadius: 4
+  DesiredTeam: 0
 --- !u!114 &114026085307415342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -536,9 +537,9 @@ MonoBehaviour:
   cohesionPercent: 0.9
   seperationPercent: 0
   ForgetTimeInSeconds: 0.5
-  AllyDetection: {fileID: 114678991322954040}
-  DesiredRadiusToPlayer: 2
-  targetTags:
+  TargetDetection: {fileID: 114678991322954040}
+  DesiredRadiusToTarget: 2
+  DesiredTags:
   - Player
 --- !u!114 &114814749068809040
 MonoBehaviour:

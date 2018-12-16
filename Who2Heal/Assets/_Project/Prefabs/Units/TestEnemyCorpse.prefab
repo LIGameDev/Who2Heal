@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4310056838745202}
   - component: {fileID: 65411379363811428}
   - component: {fileID: 114517435914555084}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TestEnemyCorpse
-  m_TagString: Untagged
+  m_TagString: Revivable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

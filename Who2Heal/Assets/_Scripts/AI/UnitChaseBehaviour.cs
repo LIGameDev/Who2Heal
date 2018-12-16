@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class UnitChaseBehaviour : BasicFlockingBehaviour 
 {
-    public DetectVolume AllyDetection;
-    public float DesiredRadiusToPlayer;
-    public List<string> targetTags;
+    public DetectVolume TargetDetection;
+    public float DesiredRadiusToTarget;
+    public List<string> DesiredTags;
 
+    // should rename to something other than Ally?
     protected override void UpdateAllyPositions()
     {
-        IEnumerable<UnitMover> targetObjs = AllyDetection.DetectedObjects.Where(go => targetTags.Contains(go.tag)).Select(go => go.GetComponent<UnitMover>());
+        IEnumerable<UnitMover> targetObjs = TargetDetection.DetectedObjects.Where(go => DesiredTags.Contains(go.tag)).Select(go => go.GetComponent<UnitMover>());
         if (targetObjs != null)
         {
             foreach (UnitMover targetObj in targetObjs) {
@@ -34,28 +35,38 @@ public class UnitChaseBehaviour : BasicFlockingBehaviour
     // do we have a place to move to
     public override bool ShouldProcessUpdate()
     {
-        if (allyPositions.Count > 0)
+        foreach (LastSeenAlly lastSeen in allyPositions.Values)
         {
-            foreach (LastSeenAlly allyPos in allyPositions.Values)
+            if (Vector3.Distance(lastSeen.Position, this.transform.position) > DesiredRadiusToTarget)
             {
-                if (Vector3.Distance(allyPos.Position, this.transform.position) > DesiredRadiusToPlayer)
-                {
-                    // we have the unit to move to and we are not close enough
-                    return true;
-                }
+                // we have the unit to move to and we are not close enough
+                return true;
             }
-            return false;
-        } else
-        {
-            return false;
         }
+        return false;
     }
 
     // do the move computation
     public override void ProcessUpdate(UnitMover unitMover)
     {
-        Vector3 resultingMove = ComputeFLockingMove();
-        unitMover.Move(resultingMove);
+        if (allyPositions != null && allyPositions.Count > 0)
+        {
+            float minDist = float.MaxValue;
+            LastSeenAlly beelineTarget = null;
+            foreach (LastSeenAlly lastSeen in allyPositions.Values)
+            {
+                float testDist = Vector3.Distance(lastSeen.Position, this.transform.position);
+                if (testDist < minDist)
+                {
+                    minDist = testDist;
+                    beelineTarget = lastSeen;
+                }
+            }
+            // make a beeline for the target
+            Vector3 dir = beelineTarget.Position - this.transform.position;
+            dir.Normalize();
+            unitMover.Move(dir);
+        }
     }
 
 }
