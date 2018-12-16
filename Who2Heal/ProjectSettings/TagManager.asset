@@ -8,6 +8,7 @@ TagManager:
   - ManaPotion
   - PartyMember
   - BeelineTest
+  - Enemy
   layers:
   - Default
   - TransparentFX
