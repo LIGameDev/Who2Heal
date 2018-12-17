@@ -1,44 +1,47 @@
 fileFormatVersion: 2
-guid: 6632d82a1c9180a4e827e7de9a549440
+guid: 0906e8d51b42eb2409f7be581b3caff0
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: WallTile_Base
-    100002: WallTile_Center
-    100004: WallTile_Edge
-    100006: WallTile_ExteriorCorner
-    100008: WallTile_InteriorCorner
-    100010: //RootNode
+    100000: Camera
+    100002: Lamp
+    100004: WallTile_Base
+    100006: WallTile_Center
+    100008: WallTile_Edge
+    100010: WallTile_ExteriorCorner
     100012: WallTile_Floor
-    400000: WallTile_Base
-    400002: WallTile_Center
-    400004: WallTile_Edge
-    400006: WallTile_ExteriorCorner
-    400008: WallTile_InteriorCorner
-    400010: //RootNode
+    100014: WallTile_InteriorCorner
+    100016: //RootNode
+    400000: Camera
+    400002: Lamp
+    400004: WallTile_Base
+    400006: WallTile_Center
+    400008: WallTile_Edge
+    400010: WallTile_ExteriorCorner
     400012: WallTile_Floor
+    400014: WallTile_InteriorCorner
+    400016: //RootNode
+    2000000: Camera
     2100000: Material
     2300000: WallTile_Base
     2300002: WallTile_Center
     2300004: WallTile_Edge
     2300006: WallTile_ExteriorCorner
-    2300008: WallTile_InteriorCorner
-    2300010: WallTile_Floor
+    2300008: WallTile_Floor
+    2300010: WallTile_InteriorCorner
     3300000: WallTile_Base
     3300002: WallTile_Center
     3300004: WallTile_Edge
     3300006: WallTile_ExteriorCorner
-    3300008: WallTile_InteriorCorner
-    3300010: WallTile_Floor
-    4300000: WallTile_Center
-    4300002: WallTile_ExteriorCorner
-    4300004: WallTile_InteriorCorner
-    4300006: WallTile_Edge
-    4300008: WallTile_Base
-    4300010: WallTile_Floor
-    7400000: Default Take
-    9500000: //RootNode
-    2186277476908879412: ImportLogs
+    3300008: WallTile_Floor
+    3300010: WallTile_InteriorCorner
+    4300000: WallTile_Floor
+    4300002: WallTile_Center
+    4300004: WallTile_ExteriorCorner
+    4300006: WallTile_InteriorCorner
+    4300008: WallTile_Edge
+    4300010: WallTile_Base
+    10800000: Lamp
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -70,7 +73,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -115,7 +118,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

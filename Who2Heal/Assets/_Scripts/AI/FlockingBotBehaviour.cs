@@ -6,11 +6,12 @@ public class FlockingBotBehaviour : BasicFlockingBehaviour
 {
     public DetectVolume AllyDetection;
     public float SeperationRadius;
+    public UnitModel.Team DesiredTeam;
 
     protected override void UpdateAllyPositions()
     {
         // keep an update on who we can see
-        foreach (UnitMover unit in FindUnits(UnitModel.Team.Ally))
+        foreach (UnitMover unit in FindUnits(DesiredTeam))
         {
             Vector3 targetPoint = unit.GetComponent<Collider>().bounds.center;
             if (HasLineOfSight(targetPoint))
