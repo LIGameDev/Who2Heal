@@ -3,50 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReviveAbility : UnitAbility {
+public class ReviveAbility : UnitAbility
+{
+    [SerializeField] private int ManaCost = 30;
+    [SerializeField] private DetectVolume detectVolume; 
+    [SerializeField] private UnitCorpse reviveTarget; 
 
-    public float channelTime = 1f;
-    public float executeTime = 0.2f;
-    public float cooldownTime = 5f; 
 
-    public DetectVolume detectVolume; 
 
-    [SerializeField] AbilityState state = AbilityState.Ready;
-    public AbilityState State
+    public override bool CanUse()
     {
-        get { return state; }
-    }
-    
-    [SerializeField] float timer = -1f; 
-    [SerializeField] UnitCorpse reviveTarget; 
-    
-    private void Update()
-    {
-        if (timer > 0f)
-        {
-            timer = Mathf.MoveTowards(timer, 0f, Time.deltaTime); 
-        }
+        if (MyUser == null)
+            return false;
 
-        if (timer == 0f)
-        {
-            switch (state)
-            {
-                case AbilityState.Channeling:
-                    Execute(); 
-                    break;
+        return this.State == AbilityState.Ready && MyUser.mana.amount >= ManaCost;
 
-                case AbilityState.Executing:
-                    PutOnCooldown(); 
-                    break;
-
-                case AbilityState.OnCooldown:
-                    SetReady();
-                    break;
-            }
-        }
     }
 
-    public override bool Use()
+    protected override bool DoUse()
     {
         reviveTarget = null;
 
@@ -59,7 +33,7 @@ public class ReviveAbility : UnitAbility {
             if (!unitCorpse.CanRevive)
                 continue;
 
-            float dist = (corpse.transform.position - transform.position).magnitude;
+            float dist = Vector3.Distance(corpse.transform.position, transform.position);
 
             if (reviveTarget == null || dist < closestDist)
             {
@@ -70,35 +44,34 @@ public class ReviveAbility : UnitAbility {
 
         if (reviveTarget != null)
         {
-            state = AbilityState.Channeling;
-            timer = channelTime;
-
-            return true; 
+            return MyUser.TryDrainMana(ManaCost);
         }
 
         return false;
     }
 
-    private void Execute()
+    protected override bool Execute()
     {
-        state = AbilityState.Executing;
-        timer = executeTime;
-
         if (reviveTarget != null && reviveTarget.Revive())
         {
             detectVolume.Remove(reviveTarget.gameObject);
         }
+
+        return true;
     }
 
-    private void PutOnCooldown()
+    protected override bool StartCooldown()
     {
-        state = AbilityState.OnCooldown;
-        timer = cooldownTime; 
+        return true;
     }
 
-    private void SetReady()
+    protected override bool SetReady()
     {
-        state = AbilityState.Ready;
-        timer = -1f; 
+        return true;
+    }
+
+    protected override bool StartChanneling()
+    {
+        return true;
     }
 }

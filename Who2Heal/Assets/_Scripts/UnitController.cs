@@ -59,6 +59,15 @@ public class UnitController : MonoBehaviour {
         GetComponents<UnitAbility>(unitAbilities); 
     }
 
+    protected bool CanUseAbility<T>() where T : UnitAbility
+    {
+        var ability = GetAbility<T>();
+        if (ability != null)
+            return ability.CanUse();
+
+        return false;
+    }
+
     protected bool UseAbility<T>() where T : UnitAbility
     {
         var ability = GetAbility<T>();
@@ -67,7 +76,6 @@ public class UnitController : MonoBehaviour {
             return ability.Use();
         }
 
-        Debug.Log(string.Format("[{0}] UseAbility(): No ability of type in list", name)); 
         return false; 
     }
 
@@ -81,6 +89,7 @@ public class UnitController : MonoBehaviour {
             }
         }
 
+        Debug.Log(string.Format("[{0}] UseAbility(): No ability of type in list", name));
         return null; 
     }
 }

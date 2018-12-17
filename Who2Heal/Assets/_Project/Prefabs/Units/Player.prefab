@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 114634125539319018}
   - component: {fileID: 114435454147952344}
   - component: {fileID: 114084761241752660}
+  - component: {fileID: 114577097674411546}
   - component: {fileID: 54965617036304524}
   - component: {fileID: 136492253852468252}
   m_Layer: 0
@@ -479,13 +480,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bfe1f646e43479429be285a3605a8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: {x: 0, y: 0}
   channelTime: 1
   executeTime: 0.2
   cooldownTime: 3
-  detectVolume: {fileID: 114886313757906036}
-  state: 0
   timer: -1
+  state: 0
+  ManaCost: 30
+  detectVolume: {fileID: 114886313757906036}
   reviveTarget: {fileID: 0}
 --- !u!114 &114209248250307924
 MonoBehaviour:
@@ -528,10 +529,26 @@ MonoBehaviour:
   corpsePrefab: {fileID: 0}
   gameCamera: {fileID: 0}
   manaPotions: 3
-  reviveManaCost: 30
-  potionMana: 30
   Notification: {fileID: 0}
   GameSceneManager: {fileID: 0}
+--- !u!114 &114577097674411546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1444680254865380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffebd65daf1be9744afa12189d4b84f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  channelTime: 0
+  executeTime: 0
+  cooldownTime: 0
+  timer: -1
+  state: 0
+  player: {fileID: 114435454147952344}
+  ManaToAdd: 30
 --- !u!114 &114601925505886984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -645,7 +662,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d02c68e5964284193963155b9bf3fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectTags: []
+  detectTags:
+  - Revivable
   detectedObjects: []
 --- !u!114 &114892650124989920
 MonoBehaviour:
