@@ -21,6 +21,9 @@ public class UnitMover : MonoBehaviour {
         private set;
     }
 
+    public delegate void RotationAction(Quaternion newRot);
+    public event RotationAction OnRotationChanged;
+
     void Start ()
     {
         body = GetComponent<Rigidbody>();
@@ -34,6 +37,10 @@ public class UnitMover : MonoBehaviour {
 		if (rotateToMoveDirection && MoveVector != Vector3.zero)
         {
             moveRot = Quaternion.AngleAxis(Quaternion.LookRotation(MoveVector).eulerAngles.y, Vector3.up);
+
+            if (OnRotationChanged != null)
+                OnRotationChanged(moveRot);
+            //OnRotationChanged?.Invoke(moveRot); 
         }
 
         // Apply deceleration
