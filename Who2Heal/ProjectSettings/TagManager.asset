@@ -9,6 +9,7 @@ TagManager:
   - PartyMember
   - BeelineTest
   - Enemy
+  - ExitZone
   layers:
   - Default
   - TransparentFX

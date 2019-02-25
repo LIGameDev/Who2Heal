@@ -59,15 +59,22 @@ public class PlayerController : UnitController {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == Tags.ManaPotion)
+        switch (other.tag)
         {
-            manaPotions++;
+            case Tags.ManaPotion: 
+                manaPotions++;
 
-            if (Notification != null)
-                Notification.Notify("You picked up a mana potion!");
+                if (Notification != null)
+                    Notification.Notify("You picked up a mana potion!");
 
-            if (GameSceneManager != null)
-                GameSceneManager.PickupPotion(other.gameObject);
+                if (GameSceneManager != null)
+                    GameSceneManager.PickupPotion(other.gameObject);
+
+                break;
+
+            case Tags.ExitZone:
+                GameSceneManager.EndConditionSatisfied(GameSceneManager.EndCondition.WinPlayerEscape); 
+                break;
         }
     }
 

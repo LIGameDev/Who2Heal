@@ -26,6 +26,14 @@ public class GameSceneManager : MonoBehaviour {
     }
 
     private PlayerController playerController;
+    public EndScreenController endScreenController; 
+
+    public enum EndCondition
+    {
+        WinPlayerEscape, 
+        WinGeneralKilled,
+        LosePlayerKilled,
+    }
 
     void Start () {
         // setup level
@@ -34,6 +42,7 @@ public class GameSceneManager : MonoBehaviour {
         }
 
         playerController = GameObject.FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
+        endScreenController = GameObject.FindObjectOfType<EndScreenController>().GetComponent<EndScreenController>(); 
 
         GameSceneManager_OnCameraRotationChanged(); 
         OnCameraRotationChanged += GameSceneManager_OnCameraRotationChanged;
@@ -71,6 +80,28 @@ public class GameSceneManager : MonoBehaviour {
     public void PickupPotion(GameObject potion)
     {
         Destroy(potion);
+    }
+
+    public void EndConditionSatisfied(EndCondition condition)
+    {
+        string resultText = "WHAT";
+        string conditionText = "?????????"; 
+
+        switch(condition)
+        {
+            case EndCondition.WinPlayerEscape:
+                resultText = "YOU WIN";
+                conditionText = "running away is, contrary to popular opinion, a valid solution"; 
+                break;
+
+            case EndCondition.WinGeneralKilled:
+                break;
+
+            case EndCondition.LosePlayerKilled:
+                break;
+        }
+
+        endScreenController?.Show(resultText, conditionText);
     }
 
     private void GameSceneManager_OnCameraRotationChanged()
