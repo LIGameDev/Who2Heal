@@ -2501,6 +2501,52 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 115bf47e185354ee590f64410b29c30a, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1001 &1241566746
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
+      propertyPath: m_RootOrder
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1389237079997472, guid: 192d65c664405514799bacada28b680a, type: 2}
+      propertyPath: m_Name
+      value: TestEnemyGeneral
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 192d65c664405514799bacada28b680a, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1272234063
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,6 +2579,7 @@ MonoBehaviour:
   - {x: 2, y: 0, z: -2}
   - {x: 3, y: 0, z: -4}
   - {x: 4, y: 0, z: -6}
+  enemyGeneral: {fileID: 0}
   environmentMaterial: {fileID: 2100000, guid: 688946ef523a8014baede0640237770c, type: 2}
   virtualCamera: {fileID: 53594057}
   cameraRotationSpeed: 50

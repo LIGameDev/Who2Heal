@@ -9,6 +9,8 @@ public class GameSceneManager : MonoBehaviour {
     public GameObject manaPotion;
     public List<Vector3> manaPotionSpawnLocations;
 
+    [SerializeField] UnitModel enemyGeneral;
+
     [SerializeField] Material environmentMaterial;
     [SerializeField] CinemachineVirtualCamera virtualCamera;
 
@@ -50,6 +52,11 @@ public class GameSceneManager : MonoBehaviour {
         OnCameraRotationChanged += GameSceneManager_OnCameraRotationChanged;
 
         GameFinished = false; 
+
+        if (enemyGeneral != null)
+        {
+            enemyGeneral.OnDeath += EnemyGeneral_OnDeath;
+        }
 	}
     
     private void Update()
@@ -116,6 +123,8 @@ public class GameSceneManager : MonoBehaviour {
                 break;
 
             case EndCondition.WinGeneralKilled:
+                resultText = "YOU WIN";
+                conditionText = "i guess finishing the job you were assigned works too"; //report bard for stealing my kill smh
                 didWin = true;
                 break;
 
@@ -127,6 +136,11 @@ public class GameSceneManager : MonoBehaviour {
         }
 
         endScreenController?.Show(resultText, conditionText, didWin);
+    }
+
+    private void EnemyGeneral_OnDeath()
+    {
+        EndConditionSatisfied(EndCondition.WinGeneralKilled, 0.5f); 
     }
 
     private void GameSceneManager_OnCameraRotationChanged()
