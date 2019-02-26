@@ -2047,6 +2047,22 @@ Prefab:
       propertyPath: gameSceneManager
       value: 
       objectReference: {fileID: 1272234064}
+    - target: {fileID: 114435454147952344, guid: dfdac11777a36b44d89bfcca18211071,
+        type: 2}
+      propertyPath: corpsePrefab
+      value: 
+      objectReference: {fileID: 1614387535489730, guid: 16dc89a6df8959a48a45bfab59a7481c,
+        type: 2}
+    - target: {fileID: 114634125539319018, guid: dfdac11777a36b44d89bfcca18211071,
+        type: 2}
+      propertyPath: health.regenAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114634125539319018, guid: dfdac11777a36b44d89bfcca18211071,
+        type: 2}
+      propertyPath: health.regenRate
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfdac11777a36b44d89bfcca18211071, type: 2}
   m_IsPrefabAsset: 0
@@ -3087,6 +3103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endResultText: {fileID: 485655616}
   endConditionText: {fileID: 1615461614}
+  winColor: {r: 0, g: 1, b: 0.14285707, a: 1}
+  lossColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &1481518374 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4074204940877052, guid: 45c75d9a6f4d8cb409774d89b5551e42,

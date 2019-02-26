@@ -25,6 +25,8 @@ public class GameSceneManager : MonoBehaviour {
         }
     }
 
+    public bool GameFinished { private set; get; }
+
     private PlayerController playerController;
     public EndScreenController endScreenController; 
 
@@ -46,6 +48,8 @@ public class GameSceneManager : MonoBehaviour {
 
         GameSceneManager_OnCameraRotationChanged(); 
         OnCameraRotationChanged += GameSceneManager_OnCameraRotationChanged;
+
+        GameFinished = false; 
 	}
     
     private void Update()
@@ -82,26 +86,47 @@ public class GameSceneManager : MonoBehaviour {
         Destroy(potion);
     }
 
-    public void EndConditionSatisfied(EndCondition condition)
+    public void EndConditionSatisfied(EndCondition condition, float timeDelay = 0f)
     {
-        string resultText = "WHAT";
-        string conditionText = "?????????"; 
+        if (GameFinished)
+            return;
 
-        switch(condition)
+        GameFinished = true; 
+
+        if (timeDelay > 0f)
+            StartCoroutine(ShowEndScreen(condition, timeDelay)); 
+        else
+            StartCoroutine(ShowEndScreen(condition, 0f));
+    }
+
+    private IEnumerator ShowEndScreen(EndCondition condition, float timeDelay)
+    {
+        yield return new WaitForSeconds(timeDelay); 
+
+        string resultText = "WHAT";
+        string conditionText = "?????????";
+        bool didWin = true; 
+
+        switch (condition)
         {
             case EndCondition.WinPlayerEscape:
                 resultText = "YOU WIN";
-                conditionText = "running away is, contrary to popular opinion, a valid solution"; 
+                conditionText = "running away is, contrary to popular opinion, a valid solution";
+                didWin = true; 
                 break;
 
             case EndCondition.WinGeneralKilled:
+                didWin = true;
                 break;
 
             case EndCondition.LosePlayerKilled:
+                resultText = "YOU LOSE";
+                conditionText = "how can you eat more cookies if you're dead";
+                didWin = false;
                 break;
         }
 
-        endScreenController?.Show(resultText, conditionText);
+        endScreenController?.Show(resultText, conditionText, didWin);
     }
 
     private void GameSceneManager_OnCameraRotationChanged()

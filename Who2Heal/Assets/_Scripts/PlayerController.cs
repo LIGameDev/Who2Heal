@@ -57,6 +57,13 @@ public class PlayerController : UnitController {
         
     }
 
+    protected override void UnitModel_OnDeath()
+    {
+        base.UnitModel_OnDeath();
+
+        GameSceneManager.EndConditionSatisfied(GameSceneManager.EndCondition.LosePlayerKilled, 0.5f);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         switch (other.tag)
