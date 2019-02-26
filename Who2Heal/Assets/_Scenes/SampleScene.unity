@@ -2510,7 +2510,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -10
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2518,7 +2518,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4721315242961690, guid: 192d65c664405514799bacada28b680a, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2543,6 +2543,26 @@ Prefab:
     - target: {fileID: 1389237079997472, guid: 192d65c664405514799bacada28b680a, type: 2}
       propertyPath: m_Name
       value: TestEnemyGeneral
+      objectReference: {fileID: 0}
+    - target: {fileID: 114271043391460924, guid: 192d65c664405514799bacada28b680a,
+        type: 2}
+      propertyPath: health.amount
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114271043391460924, guid: 192d65c664405514799bacada28b680a,
+        type: 2}
+      propertyPath: health.maxAmount
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114271043391460924, guid: 192d65c664405514799bacada28b680a,
+        type: 2}
+      propertyPath: health.regenAmount
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114271043391460924, guid: 192d65c664405514799bacada28b680a,
+        type: 2}
+      propertyPath: health.regenRate
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192d65c664405514799bacada28b680a, type: 2}
@@ -2579,7 +2599,7 @@ MonoBehaviour:
   - {x: 2, y: 0, z: -2}
   - {x: 3, y: 0, z: -4}
   - {x: 4, y: 0, z: -6}
-  enemyGeneral: {fileID: 0}
+  enemyGeneral: {fileID: 1741569612}
   environmentMaterial: {fileID: 2100000, guid: 688946ef523a8014baede0640237770c, type: 2}
   virtualCamera: {fileID: 53594057}
   cameraRotationSpeed: 50
@@ -3503,6 +3523,12 @@ MonoBehaviour:
   FrontImage: {fileID: 1883504877}
   activeAlpha: 1
   inactiveAlpha: 0.5
+--- !u!114 &1741569612 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114271043391460924, guid: 192d65c664405514799bacada28b680a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1241566746}
+  m_Script: {fileID: 11500000, guid: 245fc22293b8d7f4e842228145dff421, type: 3}
 --- !u!1001 &1867919292
 Prefab:
   m_ObjectHideFlags: 0
