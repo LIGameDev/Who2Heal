@@ -26,15 +26,22 @@ public class DirectionalSpriteController : MonoBehaviour {
 
     private void Start()
     {
+        if (gameSceneManager == null)
+        {
+            gameSceneManager = FindObjectOfType<GameSceneManager>(); 
+        }
+
         if (castShadows)
             spriteRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 
         spriteRenderer.receiveShadows = receiveShadows;
 
         initialRotation = transform.rotation;
-        lastUnitMoverRotationY = 0f; 
+        lastUnitMoverRotationY = 0f;
+        
+        if (unitMover != null)
+            unitMover.OnRotationChanged += UnitMover_OnRotationChanged;
 
-        unitMover.OnRotationChanged += UnitMover_OnRotationChanged;
         gameSceneManager.OnCameraRotationChanged += GameSceneManager_OnCameraRotationChanged;
     }
     
@@ -52,7 +59,7 @@ public class DirectionalSpriteController : MonoBehaviour {
 
     private void LateUpdate()
     {
-        transform.rotation = Quaternion.AngleAxis(gameSceneManager.CameraYAngle, Vector3.up) * initialRotation; 
+        transform.rotation = Quaternion.AngleAxis(gameSceneManager.CameraYAngle, Vector3.up) * Quaternion.Euler(45f, 0f, 0f); // * initialRotation; 
     }
 
     private void UnitMover_OnRotationChanged(Quaternion newRot)
@@ -90,7 +97,8 @@ public class DirectionalSpriteController : MonoBehaviour {
         }
 
         // Set sprite accordingly
-        spriteRenderer.sprite = closestDirSpr.sprite;
+        if (spriteRenderer != null)
+            spriteRenderer.sprite = closestDirSpr.sprite;
 
         //Debug.Log($"[DirectionalSpriteController] target = {targetYAngle}, closest = {closestDirSpr.yAngle}, diff = {closestDiff}"); 
     }
