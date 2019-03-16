@@ -35,15 +35,7 @@ public class UnitChaseBehaviour : BasicFlockingBehaviour
     // do we have a place to move to
     public override bool ShouldProcessUpdate()
     {
-        foreach (LastSeenAlly lastSeen in allyPositions.Values)
-        {
-            if (Vector3.Distance(lastSeen.Position, this.transform.position) > DesiredRadiusToTarget)
-            {
-                // we have the unit to move to and we are not close enough
-                return true;
-            }
-        }
-        return false;
+        return allyPositions.Count == 0 ? false : true;
     }
 
     // do the move computation
@@ -60,6 +52,11 @@ public class UnitChaseBehaviour : BasicFlockingBehaviour
                 {
                     minDist = testDist;
                     beelineTarget = lastSeen;
+                    if (minDist < DesiredRadiusToTarget)
+                    {
+                        // already close enough
+                        return;
+                    }
                 }
             }
             // make a beeline for the target
