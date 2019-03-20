@@ -7,6 +7,15 @@ public class BotBrain : UnitController
     [SerializeField]
     private ABotBehaviour[] orderedBehaviours;
 
+    protected override void Start()
+    {
+        base.Start();
+        if (GetAbility<MeleeAbility>() != null)
+        {
+            GetAbility<MeleeAbility>().MyUser = this.unitModel;
+        }
+    }
+
     protected override void Update()
     {
         base.Update();

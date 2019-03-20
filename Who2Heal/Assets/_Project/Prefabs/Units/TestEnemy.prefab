@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 114643308817224372}
   - component: {fileID: 114021271701062758}
   - component: {fileID: 114890817327745128}
+  - component: {fileID: 114662454204105744}
+  - component: {fileID: 114601318695591650}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -522,6 +524,7 @@ MonoBehaviour:
     type: 2}
   orderedBehaviours:
   - {fileID: 114643308817224372}
+  - {fileID: 114601318695591650}
   - {fileID: 114021271701062758}
   - {fileID: 114890817327745128}
 --- !u!114 &114561762805732458
@@ -545,6 +548,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114601318695591650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1389237079997472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8d69f137ccc4e8abd6166de4e9e2ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 2.5
 --- !u!114 &114643308817224372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -565,6 +580,26 @@ MonoBehaviour:
   DesiredTags:
   - Player
   - PartyMember
+--- !u!114 &114662454204105744
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1389237079997472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f4086182e1949d5bf57438f19985c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  channelTime: 0
+  executeTime: 0.2
+  cooldownTime: 1
+  timer: -1
+  state: 0
+  DesiredTags:
+  - Player
+  - PartyMember
+  damage: 25
 --- !u!114 &114746481259262786
 MonoBehaviour:
   m_ObjectHideFlags: 1

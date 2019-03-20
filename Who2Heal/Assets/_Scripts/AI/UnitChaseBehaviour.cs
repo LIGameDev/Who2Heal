@@ -8,6 +8,8 @@ public class UnitChaseBehaviour : BasicFlockingBehaviour
     public float DesiredRadiusToTarget;
     public List<string> DesiredTags;
 
+    private LastSeenAlly beelineTarget;
+
     // should rename to something other than Ally?
     protected override void UpdateAllyPositions()
     {
@@ -35,16 +37,9 @@ public class UnitChaseBehaviour : BasicFlockingBehaviour
     // do we have a place to move to
     public override bool ShouldProcessUpdate()
     {
-        return allyPositions.Count == 0 ? false : true;
-    }
-
-    // do the move computation
-    public override void ProcessUpdate(UnitMover unitMover)
-    {
         if (allyPositions != null && allyPositions.Count > 0)
         {
             float minDist = float.MaxValue;
-            LastSeenAlly beelineTarget = null;
             foreach (LastSeenAlly lastSeen in allyPositions.Values)
             {
                 float testDist = Vector3.Distance(lastSeen.Position, this.transform.position);
@@ -55,15 +50,22 @@ public class UnitChaseBehaviour : BasicFlockingBehaviour
                     if (minDist < DesiredRadiusToTarget)
                     {
                         // already close enough
-                        return;
+                        return false;
                     }
                 }
             }
-            // make a beeline for the target
-            Vector3 dir = beelineTarget.Position - this.transform.position;
-            dir.Normalize();
-            unitMover.Move(dir);
+            return true;
         }
+        return false;
+    }
+
+    // do the move computation
+    public override void ProcessUpdate(UnitMover unitMover)
+    {
+        // make a beeline for the target
+        Vector3 dir = beelineTarget.Position - this.transform.position;
+        dir.Normalize();
+        unitMover.Move(dir);
     }
 
 }

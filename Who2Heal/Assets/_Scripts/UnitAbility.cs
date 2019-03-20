@@ -73,7 +73,7 @@ public abstract class UnitAbility : MonoBehaviour {
         if (MyUser == null)
             return false;
 
-        if (CanUse())
+        if (CanUse() && State == AbilityState.Ready)
         {
             bool used = DoUse();
             if (used)
