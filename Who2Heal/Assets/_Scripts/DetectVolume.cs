@@ -15,13 +15,17 @@ public class DetectVolume : MonoBehaviour {
 
     private void Update()
     {
-        detectedObjects.RemoveAll(go => go == null);
+        detectedObjects.RemoveAll(go => {
+            return go == null
+                || (go.GetComponent<UnitModel>() != null && go.GetComponent<UnitModel>().IsDead);
+        });
     }
 
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("[DetectVolume] Trigger entered"); 
-        if (detectTags.Contains(other.tag) && !detectedObjects.Contains(other.gameObject))
+        if (detectTags.Contains(other.tag) && !detectedObjects.Contains(other.gameObject)
+            && (other.GetComponent<UnitModel>() == null || !other.GetComponent<UnitModel>().IsDead))
         {
             detectedObjects.Add(other.gameObject);
         }

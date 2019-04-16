@@ -30,7 +30,7 @@ public class MeleeAbility : UnitAbility
 
     protected override bool DoUse()
     {
-        IEnumerable<UnitMover> targetObjs = TargetDetection.DetectedObjects.Where(go => DesiredTags.Contains(go.tag)).Select(go => go.GetComponent<UnitMover>());
+        IEnumerable<UnitMover> targetObjs = TargetDetection.DetectedObjects.Where(go => go != null && DesiredTags.Contains(go.tag)).Select(go => go.GetComponent<UnitMover>());
         if (targetObjs != null)
         {
             foreach (UnitMover targetObj in targetObjs)

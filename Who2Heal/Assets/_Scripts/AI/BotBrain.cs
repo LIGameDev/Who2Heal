@@ -21,7 +21,7 @@ public class BotBrain : UnitController
         base.Update();
         foreach(ABotBehaviour behaviour in orderedBehaviours)
         {
-            if(behaviour.ShouldProcessUpdate())
+            if (behaviour.ShouldProcessUpdate())
             {
                 behaviour.ProcessUpdate(this.unitMover);
                 return;

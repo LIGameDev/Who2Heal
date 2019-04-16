@@ -29,7 +29,7 @@ public class MeleeBehaviour : ABotBehaviour
             return false;
         }
 
-        IEnumerable<UnitMover> targetObjs = chaseBehaviourComp.TargetDetection.DetectedObjects.Where(go => meleeAbility.DesiredTags.Contains(go.tag)).Select(go => go.GetComponent<UnitMover>());
+        IEnumerable<UnitMover> targetObjs = chaseBehaviourComp.TargetDetection.DetectedObjects.Where(go => go != null && meleeAbility.DesiredTags.Contains(go.tag)).Select(go => go.GetComponent<UnitMover>());
         if (targetObjs != null)
         {
             foreach (UnitMover targetObj in targetObjs)

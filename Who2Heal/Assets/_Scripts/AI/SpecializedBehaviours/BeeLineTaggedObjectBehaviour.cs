@@ -20,7 +20,7 @@ public class BeeLineTaggedObjectBehaviour : ABotBehaviour
         // look for my target obj    
         if (beelineTarget == null)
         {
-            beelineTarget = DetectVolume.DetectedObjects.Where(go => go.tag.Equals(DesiredTag) && HasLineOfSight(go.GetComponent<Collider>()))
+            beelineTarget = DetectVolume.DetectedObjects.Where(go => go != null && go.tag.Equals(DesiredTag) && HasLineOfSight(go.GetComponent<Collider>()))
                                                         .OrderBy(go => Vector3.Distance(this.transform.position, go.transform.position))
                                                         .FirstOrDefault();
         }
